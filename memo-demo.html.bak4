@@ -15,10 +15,6 @@
     body {
       cursor: pointer;
     }
-
-    #screen3 {
-      cursor: default;
-    }
     
     .screen {
       display: none;
@@ -36,8 +32,8 @@
     }
     
     .loading-spinner {
-      border: 3px solid rgba(229, 231, 235, 0.5);
-      border-top: 3px solid #000000;
+      border: 3px solid rgba(243, 244, 246, 0.3);
+      border-top: 3px solid #3b82f6;
       border-radius: 50%;
       width: 40px;
       height: 40px;
@@ -52,13 +48,31 @@
     .step-completed {
       color: #10b981;
     }
-
+    
     .step-in-progress {
-      color: #374151;
+      color: #3b82f6;
     }
-
+    
     .step-pending {
       color: #9ca3af;
+    }
+    
+    .nav-hint {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      pointer-events: none;
+      animation: pulse-hint 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-hint {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
     }
     
     /* Responsive breakpoints optimized for 1440px desktop */
@@ -96,303 +110,12 @@
         padding-right: 1rem;
       }
     }
-
-    /* ============================================================================
-       APPROVAL WORKFLOW MODAL
-       ============================================================================ */
-    .approval-modal {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 1000;
-      display: none;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .approval-modal.active {
-      display: block;
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .approval-modal-overlay {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
-    }
-
-    .approval-modal-content {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 600px;
-      background: white;
-      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
-      display: flex;
-      flex-direction: column;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-    }
-
-    .approval-modal.active .approval-modal-content {
-      transform: translateX(0);
-    }
-
-    .approval-modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 24px;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .approval-chain {
-      padding: 24px;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .approval-step {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 24px;
-      position: relative;
-    }
-
-    .approval-step:last-child {
-      margin-bottom: 0;
-    }
-
-    .approval-step:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      left: 20px;
-      top: 48px;
-      bottom: -24px;
-      width: 2px;
-      background: #e5e7eb;
-    }
-
-    .approval-step-indicator {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .approval-step-indicator.approved {
-      background: #10b981;
-    }
-
-    .approval-step-indicator.pending {
-      background: #f59e0b;
-      position: relative;
-    }
-
-    .approval-pulse {
-      width: 16px;
-      height: 16px;
-      background: white;
-      border-radius: 50%;
-      animation: pulse-approval 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-approval {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 0.8; }
-    }
-
-    .approval-step-indicator.waiting {
-      background: #e5e7eb;
-    }
-
-    .approval-step-content {
-      flex: 1;
-      padding-top: 4px;
-    }
-
-    .comment-thread {
-      flex: 1;
-      padding: 24px;
-      overflow-y: auto;
-    }
-
-    .comment {
-      margin-bottom: 16px;
-    }
-
-    .approval-actions {
-      display: flex;
-      gap: 12px;
-      padding: 24px;
-      border-top: 1px solid #e5e7eb;
-    }
-
-    /* ============================================================================
-       TOAST NOTIFICATION
-       ============================================================================ */
-    .toast-notification {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 2000;
-      transform: translateY(120%);
-      transition: transform 0.3s ease;
-    }
-
-    .toast-notification.active {
-      transform: translateY(0);
-    }
-
-    .toast-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: white;
-      padding: 16px 24px;
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-      border: 1px solid #e5e7eb;
-    }
-
-    /* ============================================================================
-       EXPORT DROPDOWN
-       ============================================================================ */
-    .export-dropdown {
-      position: fixed;
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      min-width: 200px;
-      padding: 8px;
-      display: none;
-      z-index: 100;
-    }
-
-    .export-dropdown.active {
-      display: block;
-    }
-
-    .export-option {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 6px;
-      background: transparent;
-      border: none;
-      color: #374151;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.15s ease;
-      text-align: left;
-    }
-
-    .export-option:hover {
-      background: #f3f4f6;
-    }
-
-    .export-option svg {
-      flex-shrink: 0;
-    }
-
-    /* ============================================================================
-       SMART ALERTS
-       ============================================================================ */
-    .smart-alert {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 16px;
-      border-radius: 8px;
-      margin: 16px 0;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .smart-alert svg {
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .smart-alert-content {
-      flex: 1;
-    }
-
-    .smart-alert-title {
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    /* Alert variants */
-    .smart-alert.warning {
-      background: #fef3c7;
-      border-left: 4px solid #f59e0b;
-      color: #92400e;
-    }
-
-    .smart-alert.warning svg {
-      color: #f59e0b;
-    }
-
-    .smart-alert.info {
-      background: #dbeafe;
-      border-left: 4px solid #3b82f6;
-      color: #1e40af;
-    }
-
-    .smart-alert.info svg {
-      color: #3b82f6;
-    }
-
-    .smart-alert.success {
-      background: #d1fae5;
-      border-left: 4px solid #10b981;
-      color: #065f46;
-    }
-
-    .smart-alert.success svg {
-      color: #10b981;
-    }
-
-    .smart-alert.error {
-      background: #fee2e2;
-      border-left: 4px solid #ef4444;
-      color: #991b1b;
-    }
-
-    .smart-alert.error svg {
-      color: #ef4444;
-    }
-
-    .smart-alert-link {
-      color: inherit;
-      text-decoration: underline;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .smart-alert-link:hover {
-      opacity: 0.8;
-    }
   </style>
 </head>
 <body class="bg-gray-50">
+  
+  <!-- Navigation Hint -->
+  <div class="nav-hint">Click anywhere to advance →</div>
   
   <!-- Screen 1: Event Detail -->
   <div id="screen1" class="screen active">
@@ -401,12 +124,15 @@
       <div class="flex items-center justify-between mb-8">
         <h1 class="text-2xl font-bold text-gray-900">Calendar</h1>
         <div class="flex items-center space-x-2">
-          <span class="text-sm font-semibold text-gray-900">Chief AI</span>
+          <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-bold text-sm">C</span>
+          </div>
+          <span class="text-sm font-semibold text-gray-700">Chief AI</span>
         </div>
       </div>
       
       <!-- Event Card -->
-      <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-8">
+      <div class="bg-white rounded-xl shadow-lg p-8">
         <h2 id="event-title" class="text-3xl font-bold text-gray-900 mb-6">Q4 Budget Discussion with Denver Public Schools</h2>
         
         <!-- Date/Time/Location -->
@@ -431,7 +157,7 @@
           <h3 class="text-sm font-semibold text-gray-700 mb-4">Attendees</h3>
           <div class="space-y-4">
             <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <span class="text-white font-semibold text-sm">AJ</span>
               </div>
                 <div class="flex-1">
@@ -441,7 +167,7 @@
               </div>
             </div>
             <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <span class="text-white font-semibold text-sm">MR</span>
               </div>
               <div class="flex-1">
@@ -461,7 +187,7 @@
         </div>
         
         <!-- Generate Memo Button -->
-        <button class="w-full bg-black hover:bg-gray-800 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
+        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center shadow-md">
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
@@ -472,17 +198,17 @@
   </div>
   
   <!-- Screen 2: Loading State -->
-  <div id="screen2" class="screen bg-gray-50">
+  <div id="screen2" class="screen" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
     <div class="min-h-screen flex items-center justify-center px-6">
-      <div class="text-center max-w-md">
+      <div class="text-center text-white max-w-md">
         <!-- Spinner -->
         <div class="mb-8 flex justify-center">
           <div class="loading-spinner"></div>
         </div>
         
         <!-- Title -->
-        <h2 class="text-2xl font-bold text-gray-900 mb-2">Generating your memo...</h2>
-        <p class="text-gray-600 mb-8">This usually takes 5-10 seconds</p>
+        <h2 class="text-2xl font-bold mb-2">Generating your memo...</h2>
+        <p class="text-blue-100 mb-8">This usually takes 5-10 seconds</p>
         
         <!-- Progress Steps -->
         <div class="space-y-3 text-left bg-white rounded-lg p-6 max-w-md mx-auto">
@@ -509,13 +235,13 @@
           </div>
 
           <!-- Step 3: In Progress -->
-          <div class="flex items-center gap-3 text-gray-700">
+          <div class="flex items-center gap-3 text-blue-600">
             <svg class="w-5 h-5 flex-shrink-0 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
             </svg>
             <div class="flex-1">
               <div class="font-semibold">Analyzing 23 past interactions</div>
-              <div class="text-sm text-gray-600">Identifying patterns and key topics...</div>
+              <div class="text-sm text-blue-500">Identifying patterns and key topics...</div>
             </div>
           </div>
 
@@ -544,54 +270,27 @@
           <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
             Export
           </button>
-          <button id="sync-calendar-btn" class="px-4 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-colors">
-            Sync to Calendar
+          <button class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+            Add to Calendar
           </button>
             </div>
           </div>
       
       <!-- Toolbar (fake) -->
-      <div class="border-b p-4 flex items-center justify-between bg-gray-50">
-        <!-- Left: Edit tools -->
-        <div class="flex items-center gap-2">
-          <button class="p-2 hover:bg-gray-200 rounded transition" title="Edit">
-            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
-          </button>
-          <div class="w-px h-6 bg-gray-300"></div>
-          <button class="p-2 hover:bg-gray-200 rounded transition font-bold text-gray-700">B</button>
-          <button class="p-2 hover:bg-gray-200 rounded transition italic text-gray-700">I</button>
-        </div>
-
-        <!-- Right: Quick actions -->
-        <div class="flex items-center gap-3">
-          <button class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            Refresh data
-          </button>
-          <button class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-            Share with team
-          </button>
-          <button class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-            </svg>
-            Set reminder
-          </button>
-          <button id="submit-review-btn" class="text-sm px-3 py-1.5 text-white bg-black hover:bg-gray-800 rounded transition flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Submit for Review
-          </button>
-        </div>
-      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded-t-lg p-2 mb-0 flex items-center space-x-2">
+        <button class="p-2 hover:bg-gray-200 rounded text-gray-600">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </button>
+        <button class="p-2 hover:bg-gray-200 rounded text-gray-600">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="flex-1"></div>
+        <span class="text-xs text-gray-500">Edit mode</span>
+          </div>
       
       <!-- Memo Content -->
       <div class="bg-white border border-gray-200 border-t-0 rounded-b-lg p-8 prose prose-lg max-w-none">
@@ -603,7 +302,7 @@
         </div>
         
         <!-- Meeting Context Callout -->
-        <div class="bg-gray-50 border-l-4 border-gray-600 rounded-r-lg p-6 mb-8">
+        <div class="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-6 mb-8">
           <div class="flex items-center flex-wrap gap-2 mb-2">
             <h2 class="text-lg font-semibold text-gray-900">Meeting Context</h2>
             <div class="inline-flex items-center gap-2">
@@ -620,18 +319,110 @@
             Loading...
           </p>
         </div>
+        
 
-        <!-- Smart Alert: No recent interactions -->
-        <div class="smart-alert warning">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-          <div class="smart-alert-content">
-            <div class="smart-alert-title">No recent interactions with Dr. Johnson</div>
-            <div>Last contact was 67 days ago. Consider re-establishing connection before this meeting.</div>
+        <!-- Relationship History Timeline -->
+        <div class="bg-gradient-to-r from-gray-50 to-white border border-gray-200 rounded-lg p-6 mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Relationship History</h2>
+
+          <div class="relative">
+            <!-- Vertical timeline line -->
+            <div class="absolute left-20 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+
+            <!-- Timeline items container -->
+            <div class="space-y-6">
+              <!-- Event 1: 77 days ago - Call -->
+              <div class="flex items-start gap-4">
+                <!-- Time label -->
+                <div class="w-16 text-sm text-gray-500 text-right pt-1.5">77 days</div>
+
+                <!-- Dot indicator -->
+                <div class="w-3 h-3 rounded-full bg-blue-500 mt-2 relative z-10 flex-shrink-0"></div>
+
+                <!-- Event card -->
+                <div class="flex-1 bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                  <div class="flex items-start justify-between mb-1">
+                    <div class="text-sm font-semibold text-gray-900">Call with Dr. Johnson</div>
+                    <span class="text-xs text-gray-500 bg-blue-50 px-2 py-0.5 rounded">Call</span>
+                  </div>
+                  <div class="text-xs text-gray-600">Summer program outcomes - positive feedback on city partnership programs</div>
+                </div>
+              </div>
+
+              <!-- Event 2: 53 days ago - Meeting -->
+              <div class="flex items-start gap-4">
+                <!-- Time label -->
+                <div class="w-16 text-sm text-gray-500 text-right pt-1.5">53 days</div>
+
+                <!-- Dot indicator -->
+                <div class="w-3 h-3 rounded-full bg-purple-500 mt-2 relative z-10 flex-shrink-0"></div>
+
+                <!-- Event card -->
+                <div class="flex-1 bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                  <div class="flex items-start justify-between mb-1">
+                    <div class="text-sm font-semibold text-gray-900">Meeting with Dr. Johnson, Maria Rodriguez</div>
+                    <span class="text-xs text-gray-500 bg-purple-50 px-2 py-0.5 rounded">Meeting</span>
+                  </div>
+                  <div class="text-xs text-gray-600">Q3 Budget Review - Discussed infrastructure needs and staffing challenges</div>
+                </div>
+              </div>
+
+              <!-- Event 3: 28 days ago - Workshop -->
+              <div class="flex items-start gap-4">
+                <!-- Time label -->
+                <div class="w-16 text-sm text-gray-500 text-right pt-1.5">28 days</div>
+
+                <!-- Dot indicator -->
+                <div class="w-3 h-3 rounded-full bg-green-500 mt-2 relative z-10 flex-shrink-0"></div>
+
+                <!-- Event card -->
+                <div class="flex-1 bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                  <div class="flex items-start justify-between mb-1">
+                    <div class="text-sm font-semibold text-gray-900">Workshop with Maria Rodriguez</div>
+                    <span class="text-xs text-gray-500 bg-green-50 px-2 py-0.5 rounded">Workshop</span>
+                  </div>
+                  <div class="text-xs text-gray-600">City budget workshop - Asked detailed questions about multi-year funding commitments</div>
+                </div>
+              </div>
+
+              <!-- Event 4: 10 days ago - Email (recent, with ring) -->
+              <div class="flex items-start gap-4">
+                <!-- Time label -->
+                <div class="w-16 text-sm text-gray-500 text-right pt-1.5">10 days</div>
+
+                <!-- Dot indicator with ring effect -->
+                <div class="w-3 h-3 rounded-full bg-green-500 ring-2 ring-green-200 mt-2 relative z-10 flex-shrink-0"></div>
+
+                <!-- Event card -->
+                <div class="flex-1 bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                  <div class="flex items-start justify-between mb-1">
+                    <div class="text-sm font-semibold text-gray-900">Email from Dr. Johnson</div>
+                    <span class="text-xs text-gray-500 bg-green-50 px-2 py-0.5 rounded">Email</span>
+                  </div>
+                  <div class="text-xs text-gray-600">Teacher retention proposal - Expressed interest in partnership opportunities</div>
+                </div>
+              </div>
+
+              <!-- Event 5: Today - Current meeting (special styling) -->
+              <div class="flex items-start gap-4">
+                <!-- Time label -->
+                <div class="w-16 text-sm text-gray-500 text-right pt-1.5">Today</div>
+
+                <!-- Dot indicator with animated pulse ring -->
+                <div class="w-3 h-3 rounded-full bg-blue-500 ring-4 ring-blue-200 animate-pulse mt-2 relative z-10 flex-shrink-0"></div>
+
+                <!-- Event card with blue background -->
+                <div class="flex-1 bg-blue-50 border border-blue-200 rounded-lg p-4 shadow-sm">
+                  <div class="flex items-start justify-between mb-1">
+                    <div class="text-sm font-semibold text-blue-900">Meeting with Dr. Johnson, Maria Rodriguez</div>
+                    <span class="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded">Meeting</span>
+                  </div>
+                  <div class="text-xs text-blue-800">Q4 Budget Discussion</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
         <!-- Attendee Backgrounds -->
         <div class="mb-8">
           <div class="flex items-center flex-wrap gap-2 mb-4">
@@ -649,30 +440,8 @@
           <div id="attendee-backgrounds">
             <!-- Dynamically populated -->
           </div>
-
-          <!-- Smart Alert: Suggestion about priorities -->
-          <div class="smart-alert info">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <div class="smart-alert-content">
-              <div class="smart-alert-title">AI Insight: Priority Alignment Detected</div>
-              <div>Dr. Johnson's top priority is teacher retention. The 15% improvement stat from recent news provides a strong conversation starter.</div>
-            </div>
-          </div>
-
-          <!-- Smart Alert: Strong relationship opportunity -->
-          <div class="smart-alert success">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <div class="smart-alert-content">
-              <div class="smart-alert-title">Strong Partnership Opportunity</div>
-              <div>Maria Rodriguez has consistently responded positively to data-driven proposals. She typically replies within 24 hours - excellent collaboration potential.</div>
-            </div>
-          </div>
         </div>
-
+        
         <!-- Key Topics -->
         <div class="mb-8">
           <div class="flex items-center flex-wrap gap-2 mb-4">
@@ -692,17 +461,6 @@
           </ul>
         </div>
         
-        <!-- Smart Alert: Budget constraints warning -->
-        <div class="smart-alert error">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <div class="smart-alert-content">
-            <div class="smart-alert-title">Important: Budget Sensitivity</div>
-            <div>Maria Rodriguez mentioned Q4 budget constraints in her recent email (10 days ago). Approach funding requests carefully and emphasize long-term ROI.</div>
-          </div>
-        </div>
-
         <!-- Suggested Talking Points -->
         <div class="mb-8">
           <div class="flex items-center flex-wrap gap-2 mb-4">
@@ -720,25 +478,14 @@
           <div id="talking-points" class="space-y-4">
             <!-- Dynamically populated -->
           </div>
-
-          <!-- Smart Alert: Upcoming Board meeting -->
-          <div class="smart-alert info">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <div class="smart-alert-content">
-              <div class="smart-alert-title">Timing Opportunity</div>
-              <div>The DPS Board meeting is scheduled for November 20th (5 days after this meeting). Any agreements reached today could be presented for board consideration - emphasize this alignment opportunity.</div>
-            </div>
-          </div>
         </div>
-
+        
         <!-- Recent Developments -->
         <div class="mb-8">
           <div class="flex items-center flex-wrap gap-2 mb-4">
             <h2 class="text-2xl font-bold text-gray-900">Recent Developments</h2>
             <div class="inline-flex items-center gap-2">
-              <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-semibold flex items-center gap-1">
+              <span class="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full font-semibold flex items-center gap-1">
                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                 </svg>
@@ -780,7 +527,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="text-gray-600">News aggregator</span>
-                  <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-semibold">Verified</span>
+                  <span class="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full font-semibold">Verified</span>
                 </div>
                 <div class="flex items-center justify-between">
                   <span class="text-gray-600">Interaction history</span>
@@ -848,7 +595,7 @@
         name: 'Dr. Alex Johnson',
         title: 'Superintendent',
         organization: 'Denver Public Schools',
-        bio: 'Dr. Johnson has served as Superintendent of Denver Public Schools since 2021, bringing over 20 years of educational leadership experience. Previously Deputy Superintendent in Seattle, where she improved graduation rates by 15%. Known for data-driven decision making.',
+        bio: 'Dr. Johnson has served as Superintendent of Denver Public Schools since 2021, bringing over 20 years of educational leadership experience. Previously served as Deputy Superintendent in Seattle Public Schools, where she led initiatives that improved graduation rates by 15% over three years. Known for data-driven decision making and collaborative leadership style.',
         recentInteractions: [
           {
             date: '2025-10-28',
@@ -872,14 +619,14 @@
           'Expanding after-school programs',
           'Addressing achievement gaps'
         ],
-        relationshipNotes: 'Prefers detailed data and concrete proposals. Responds well to collaborative approaches. Best reached via email initially, prefers in-person for substantive discussions.'
+        relationshipNotes: 'Prefers detailed data and concrete proposals. Values transparency and long-term planning. Responds well to collaborative approaches. Best reached via email for initial contact, prefers in-person for substantive discussions.'
       },
       {
         id: 'prof_maria_rodriguez',
         name: 'Maria Rodriguez',
         title: 'Chief Financial Officer',
         organization: 'Denver Public Schools',
-        bio: 'Maria Rodriguez joined DPS in 2019 as CFO with extensive public sector finance experience from the City of Aurora. Known for meticulous budget analysis and creative funding solutions.',
+        bio: 'Maria Rodriguez joined DPS in 2019 as CFO, bringing extensive experience in public sector finance from her previous role as Finance Director for the City of Aurora. She has a Master\'s in Public Administration and is known for her meticulous budget analysis and ability to find creative funding solutions. Strong advocate for transparency in public spending.',
         recentInteractions: [
           {
             date: '2025-11-05',
@@ -903,31 +650,31 @@
           'Capital improvement funding',
           'Staffing cost management'
         ],
-        relationshipNotes: 'Detail-oriented and data-focused. Prefers written documentation before meetings. Very responsive to email (typically within 24 hours).'
+        relationshipNotes: 'Detail-oriented and data-focused. Appreciates early communication about budget implications. Prefers written documentation before meetings. Very responsive to email, typically replies within 24 hours.'
       }
     ];
     
     const mockOrganization = {
       name: 'Denver Public Schools',
-      description: 'Denver Public Schools is the largest school district in Colorado, serving over 90,000 students across 207 schools. Recent focus areas include addressing achievement gaps, improving infrastructure, and supporting teacher retention.',
+      description: 'Denver Public Schools is the largest school district in Colorado, serving over 90,000 students across 207 schools. The district serves a diverse student population and is committed to providing equitable educational opportunities. Recent focus areas include addressing achievement gaps, improving infrastructure, and supporting teacher retention.',
       recentNews: [
         {
           headline: 'DPS Announces $50M Infrastructure Improvement Plan',
           date: '2025-11-01',
           source: 'Denver Post',
-          summary: 'Denver Public Schools unveiled a plan to address aging infrastructure across 15 schools, focusing on HVAC and accessibility. Funding: $30M from district reserves, $20M proposed city partnership.'
+          summary: 'Denver Public Schools unveiled a comprehensive plan to address aging infrastructure across 15 schools, with focus on HVAC systems and accessibility improvements. Funding includes $30M from district reserves and $20M in proposed city partnership.'
         },
         {
           headline: 'Teacher Retention Rates Improve Following Compensation Increases',
           date: '2025-10-18',
           source: 'Chalkbeat Colorado',
-          summary: 'Teacher retention improved by 8% following new compensation structure. Superintendent Johnson credits collaborative approach with teacher unions and city support.'
+          summary: 'Early data shows teacher retention improved by 8% following implementation of new compensation structure. Superintendent Johnson credits collaborative approach with teacher unions and city support for the positive trend.'
         },
         {
           headline: 'DPS Seeks City Support for Expanded After-School Programs',
           date: '2025-10-05',
           source: 'Denver Gazette',
-          summary: 'District leadership requests additional city funding to expand after-school programming to 20 schools in underserved neighborhoods, including partnership with city recreation centers.'
+          summary: 'District leadership is requesting additional city funding to expand after-school programming to 20 additional schools, particularly in underserved neighborhoods. Proposal includes partnership with city recreation centers.'
         }
       ],
       keyInitiatives: [
@@ -1115,7 +862,7 @@
         if (latestNews) {
           suggestedTalkingPoints.push(
             `Reference the ${latestNews.headline} (${latestNews.source}, ${formatDateShort(latestNews.date)}). ` +
-            `Discuss how the proposed $50M infrastructure plan aligns with city priorities and explore partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span>.`
+            `Discuss how the proposed $50M infrastructure plan aligns with city priorities and explore <span class="bg-green-50 px-1 py-0.5 rounded">partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span></span>.`
           );
         } else {
           const cfo = profiles.find(p => p.title.includes('CFO'));
@@ -1144,7 +891,7 @@
         );
         if (retentionNews) {
           suggestedTalkingPoints.push(
-            `Acknowledge the <span class="bg-green-50 px-1 py-0.5 rounded">positive teacher retention results</span> (8% improvement) mentioned in recent news. ` +
+            `Acknowledge the positive teacher retention results (8% improvement) mentioned in recent news. ` +
             `Discuss how city can continue supporting compensation initiatives and explore additional partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span>.`
           );
         }
@@ -1260,14 +1007,14 @@
       }
       
       // Update meeting context
-      const contextEl = screen3.querySelector('.bg-gray-50 p.text-gray-700');
-      if (contextEl) contextEl.innerHTML = memo.sections.meetingContext;
+      const contextEl = screen3.querySelector('.bg-blue-50 p.text-gray-700');
+      if (contextEl) contextEl.textContent = memo.sections.meetingContext;
       
       // Update attendee backgrounds
       const attendeeContainer = screen3.querySelector('#attendee-backgrounds');
       if (attendeeContainer) {
         attendeeContainer.innerHTML = memo.sections.attendeeBackgrounds.map((attendee, idx) => `
-          <div class="border-l-4 border-gray-600 bg-gray-50 rounded-r-lg p-6 ${idx < memo.sections.attendeeBackgrounds.length - 1 ? 'mb-4' : ''}">
+          <div class="border-l-4 border-purple-500 bg-purple-50/30 rounded-r-lg p-6 ${idx < memo.sections.attendeeBackgrounds.length - 1 ? 'mb-4' : ''}">
             <h3 class="text-lg font-semibold text-gray-900 mb-2">${attendee.name}</h3>
             <p class="text-gray-700 leading-relaxed">${attendee.context}</p>
           </div>
@@ -1290,67 +1037,14 @@
       // Update talking points
       const talkingPointsContainer = screen3.querySelector('#talking-points');
       if (talkingPointsContainer) {
-        talkingPointsContainer.innerHTML = memo.sections.suggestedTalkingPoints.map((point, idx) => {
-          let html = `
-          <div class="bg-gray-50 border-l-4 border-gray-400 rounded-r-lg p-5">
+        talkingPointsContainer.innerHTML = memo.sections.suggestedTalkingPoints.map((point, idx) => `
+          <div class="bg-amber-50 border-l-4 border-amber-400 rounded-r-lg p-5">
             <div class="flex items-start">
-              <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">${idx + 1}</div>
+              <div class="w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">${idx + 1}</div>
               <p class="text-gray-800 leading-relaxed">${point}</p>
             </div>
-          `;
-
-          // Add AI suggestion boxes after talking points #2 and #4
-          if (idx === 1) {
-            // Suggestion for talking point #2
-            html += `
-            <div class="mt-2 text-xs bg-gray-50 border border-gray-300 rounded-lg p-3 flex items-start gap-2">
-              <svg class="w-4 h-4 text-gray-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              <div class="flex-1">
-                <div class="text-gray-900 font-semibold mb-1">AI Suggestion</div>
-                <div class="text-gray-700 leading-relaxed">
-                  Add specific school names from the 15 identified to make the discussion more concrete and show you've done your homework.
-                </div>
-                <div class="flex items-center gap-3 mt-2">
-                  <button class="text-gray-900 font-semibold hover:text-gray-700 transition">
-                    Apply suggestion
-                  </button>
-                  <button class="text-gray-500 hover:text-gray-700 transition">
-                    Dismiss
-                  </button>
-                </div>
-              </div>
-            </div>
-            `;
-          } else if (idx === 3) {
-            // Suggestion for talking point #4
-            html += `
-            <div class="mt-2 text-xs bg-gray-50 border border-gray-300 rounded-lg p-3 flex items-start gap-2">
-              <svg class="w-4 h-4 text-gray-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              <div class="flex-1">
-                <div class="text-gray-900 font-semibold mb-1">AI Suggestion</div>
-                <div class="text-gray-700 leading-relaxed">
-                  Reference specific dollar amount or percentage from her proposal email (from 10 days ago) to ground this in concrete numbers.
-                </div>
-                <div class="flex items-center gap-3 mt-2">
-                  <button class="text-gray-900 font-semibold hover:text-gray-700 transition">
-                    Apply suggestion
-                  </button>
-                  <button class="text-gray-500 hover:text-gray-700 transition">
-                    Dismiss
-                  </button>
-                </div>
-              </div>
-            </div>
-            `;
-          }
-
-          html += `</div>`;
-          return html;
-        }).join('');
+          </div>
+        `).join('');
       }
       
       // Update recent developments
@@ -1358,19 +1052,14 @@
       if (developmentsContainer) {
         developmentsContainer.innerHTML = memo.sections.recentDevelopments.map(dev => {
           const newsItem = mockOrganization.recentNews.find(n => n.headline === dev.topic);
-          let dateStr = newsItem ? formatDateShort(newsItem.date) : '';
-
-          // Bold dates within 30 days of Nov 15, 2025
-          if (newsItem && daysAgo(newsItem.date) <= 30) {
-            dateStr = `<strong class="font-semibold">${dateStr}</strong>`;
-          }
+          const dateStr = newsItem ? formatDateShort(newsItem.date) : '';
           return `
             <div class="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow">
               <div class="flex items-start justify-between mb-2">
                 <div class="flex-1">
                   <div class="flex items-center gap-2 mb-1">
                     <h3 class="text-lg font-semibold text-gray-900">${dev.topic}</h3>
-                    <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-semibold flex items-center gap-1">
+                    <span class="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full font-semibold flex items-center gap-1">
                       <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                       </svg>
@@ -1389,7 +1078,7 @@
       // Update relationship history
       const relationshipHistoryEl = screen3.querySelector('#relationship-history p');
       if (relationshipHistoryEl && memo.sections.relationshipHistory) {
-        relationshipHistoryEl.innerHTML = memo.sections.relationshipHistory;
+        relationshipHistoryEl.textContent = memo.sections.relationshipHistory;
       }
       
       // Update metadata
@@ -1491,313 +1180,6 @@
     } else {
       initScreen1();
     }
-
-    // ============================================================================
-    // NEW FEATURES: APPROVAL WORKFLOW, EXPORT, TOAST
-    // ============================================================================
-
-    // Approval Modal Functions
-    function openApprovalModal() {
-      const modal = document.getElementById('approval-modal');
-      modal.classList.add('active');
-    }
-
-    function closeApprovalModal() {
-      const modal = document.getElementById('approval-modal');
-      modal.classList.remove('active');
-    }
-
-    // Toast Notification Function
-    function showToast(message) {
-      const toast = document.getElementById('toast-notification');
-      const messageEl = document.getElementById('toast-message');
-      messageEl.textContent = message;
-      toast.classList.add('active');
-
-      setTimeout(() => {
-        toast.classList.remove('active');
-      }, 3000);
-    }
-
-    // Export Dropdown Functions
-    let exportDropdownOpen = false;
-
-    function toggleExportDropdown(e) {
-      e.stopPropagation();
-      const dropdown = document.getElementById('export-dropdown');
-      const button = e.currentTarget;
-      const buttonRect = button.getBoundingClientRect();
-
-      exportDropdownOpen = !exportDropdownOpen;
-
-      if (exportDropdownOpen) {
-        dropdown.classList.add('active');
-        // Position dropdown below button, aligned to right edge
-        dropdown.style.top = (buttonRect.bottom + 8) + 'px';
-        dropdown.style.left = (buttonRect.right - 200) + 'px'; // 200px is min-width of dropdown
-      } else {
-        dropdown.classList.remove('active');
-      }
-    }
-
-    function closeExportDropdown() {
-      const dropdown = document.getElementById('export-dropdown');
-      dropdown.classList.remove('active');
-      exportDropdownOpen = false;
-    }
-
-    function handleExportAction(action) {
-      closeExportDropdown();
-
-      const messages = {
-        pdf: '✓ Memo exported as PDF',
-        email: '✓ Email draft created',
-        clipboard: '✓ Copied to clipboard',
-        share: '✓ Share link created'
-      };
-
-      showToast(messages[action] || '✓ Action completed');
-    }
-
-    // Event Listeners (set up after DOM is ready)
-    function setupNewFeatureListeners() {
-      // Approval Modal
-      const submitReviewBtn = document.getElementById('submit-review-btn');
-      const closeModalBtn = document.getElementById('close-approval-modal');
-      const cancelApprovalBtn = document.getElementById('cancel-approval-btn');
-      const notifyReviewersBtn = document.getElementById('notify-reviewers-btn');
-      const modalOverlay = document.querySelector('.approval-modal-overlay');
-
-      if (submitReviewBtn) {
-        submitReviewBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          openApprovalModal();
-        });
-      }
-
-      if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          closeApprovalModal();
-        });
-      }
-
-      if (cancelApprovalBtn) {
-        cancelApprovalBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          closeApprovalModal();
-        });
-      }
-
-      if (notifyReviewersBtn) {
-        notifyReviewersBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          showToast('✓ Reviewers notified');
-        });
-      }
-
-      if (modalOverlay) {
-        modalOverlay.addEventListener('click', (e) => {
-          e.stopPropagation();
-          closeApprovalModal();
-        });
-      }
-
-      // ESC key to close modal
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          const modal = document.getElementById('approval-modal');
-          if (modal && modal.classList.contains('active')) {
-            closeApprovalModal();
-          }
-          if (exportDropdownOpen) {
-            closeExportDropdown();
-          }
-        }
-      });
-
-      // Export Button - Update existing export button in header
-      const exportButton = document.querySelector('#screen3 .flex.items-center.space-x-2 button:first-child');
-      if (exportButton) {
-        exportButton.style.position = 'relative';
-        exportButton.addEventListener('click', toggleExportDropdown);
-      }
-
-      // Export Options
-      const exportOptions = document.querySelectorAll('.export-option');
-      exportOptions.forEach(option => {
-        option.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const action = e.currentTarget.getAttribute('data-action');
-          handleExportAction(action);
-        });
-      });
-
-      // Close dropdown when clicking outside
-      document.addEventListener('click', (e) => {
-        if (exportDropdownOpen && !e.target.closest('#export-dropdown') && !e.target.closest('button')) {
-          closeExportDropdown();
-        }
-      });
-
-      // Sync to Calendar Button
-      const syncCalendarBtn = document.getElementById('sync-calendar-btn');
-      if (syncCalendarBtn) {
-        syncCalendarBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          showToast('✓ Meeting synced to calendar');
-        });
-      }
-    }
-
-    // Initialize new features when page loads
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', setupNewFeatureListeners);
-    } else {
-      setupNewFeatureListeners();
-    }
   </script>
-
-  <!-- Approval Workflow Modal -->
-  <div id="approval-modal" class="approval-modal">
-    <div class="approval-modal-overlay"></div>
-    <div class="approval-modal-content">
-      <!-- Header -->
-      <div class="approval-modal-header">
-        <h2 class="text-xl font-bold text-gray-900">Review & Approval Workflow</h2>
-        <button id="close-approval-modal" class="text-gray-400 hover:text-gray-600 transition">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <!-- Approval Chain -->
-      <div class="approval-chain">
-        <h3 class="text-sm font-semibold text-gray-700 mb-4">Approval Chain</h3>
-
-        <!-- Step 1: Chief of Staff - Approved -->
-        <div class="approval-step">
-          <div class="approval-step-indicator approved">
-            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-            </svg>
-          </div>
-          <div class="approval-step-content">
-            <div class="flex items-center justify-between mb-1">
-              <div class="font-semibold text-gray-900">Sarah Chen</div>
-              <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">Approved</span>
-            </div>
-            <div class="text-sm text-gray-600">Chief of Staff</div>
-            <div class="text-xs text-gray-500 mt-1">Approved 2 minutes ago</div>
-          </div>
-        </div>
-
-        <!-- Step 2: Senior Advisor - Pending -->
-        <div class="approval-step">
-          <div class="approval-step-indicator pending">
-            <div class="approval-pulse"></div>
-          </div>
-          <div class="approval-step-content">
-            <div class="flex items-center justify-between mb-1">
-              <div class="font-semibold text-gray-900">Michael Torres</div>
-              <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full font-semibold">Pending Review</span>
-            </div>
-            <div class="text-sm text-gray-600">Senior Advisor</div>
-            <div class="text-xs text-gray-500 mt-1">Notified 2 minutes ago</div>
-          </div>
-        </div>
-
-        <!-- Step 3: Principal - Waiting -->
-        <div class="approval-step">
-          <div class="approval-step-indicator waiting">
-            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 20 20">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 0v2m3-6v6m6-10V5M6 9V5m6 4V5" />
-            </svg>
-          </div>
-          <div class="approval-step-content">
-            <div class="flex items-center justify-between mb-1">
-              <div class="font-semibold text-gray-400">Mayor Jamie Lawson</div>
-              <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full font-semibold">Awaiting</span>
-            </div>
-            <div class="text-sm text-gray-400">Principal</div>
-            <div class="text-xs text-gray-400 mt-1">Pending previous approval</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Comment Thread -->
-      <div class="comment-thread">
-        <h3 class="text-sm font-semibold text-gray-700 mb-4">Comments & Feedback</h3>
-
-        <div class="comment">
-          <div class="flex items-start gap-3">
-            <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white font-semibold text-xs">SC</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="font-semibold text-gray-900">Sarah Chen</span>
-                <span class="text-xs text-gray-500">2 minutes ago</span>
-              </div>
-              <p class="text-sm text-gray-700">Looks good! Just make sure to emphasize the partnership opportunity angle when discussing the infrastructure plan with Dr. Johnson. He responds well to collaborative framing.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Actions -->
-      <div class="approval-actions">
-        <button id="notify-reviewers-btn" class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition font-semibold flex items-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-          </svg>
-          Notify Reviewers
-        </button>
-        <button id="cancel-approval-btn" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition font-semibold">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="toast-notification" class="toast-notification">
-    <div class="toast-content">
-      <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-      </svg>
-      <span id="toast-message" class="font-semibold text-gray-900">Success!</span>
-    </div>
-  </div>
-
-  <!-- Export Dropdown Menu -->
-  <div id="export-dropdown" class="export-dropdown">
-    <button class="export-option" data-action="pdf">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-      </svg>
-      Export to PDF
-    </button>
-    <button class="export-option" data-action="email">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-      Email Draft
-    </button>
-    <button class="export-option" data-action="clipboard">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-      </svg>
-      Copy to Clipboard
-    </button>
-    <button class="export-option" data-action="share">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-      </svg>
-      Share Link
-    </button>
-  </div>
-
 </body>
 </html>
