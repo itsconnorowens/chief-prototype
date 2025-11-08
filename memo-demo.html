@@ -1088,6 +1088,10 @@
                 <p class="text-xs text-gray-500 mt-1">All sources updated within 24 hours</p>
               </div>
               <div>
+                <p class="font-semibold text-gray-700 mb-1">Data Sources</p>
+                <p id="data-sources" class="text-gray-600">Loading...</p>
+              </div>
+              <div>
                 <p class="font-semibold text-gray-700 mb-1">Overall Confidence</p>
                 <span id="confidence" class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">Loading...</span>
               </div>
@@ -1100,9 +1104,29 @@
   
   <script>
     // ============================================================================
+    // CONFIGURATION CONSTANTS
+    // ============================================================================
+    // Production-ready values for thresholds, limits, and timing
+    // These constants make architectural decisions explicit and maintainable
+
+    // Time calculations
+    const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+    const DEFAULT_MEETING_DURATION_MS = 60 * 60 * 1000; // 1 hour
+
+    // Display limits
+    const MAX_INTERACTIONS_IN_SUMMARY = 3; // Balance detail vs. readability
+    const RECENT_ACTIVITY_HIGHLIGHT_DAYS = 7; // One week threshold for "fresh" interactions
+
+    // UI timing (demo-specific)
+    const MEMO_GENERATION_DURATION_MS = 7000; // Simulated generation time
+    const TOAST_DISPLAY_DURATION_MS = 3000; // Toast auto-dismiss delay
+
+    // ============================================================================
     // MEMO GENERATOR (JavaScript version for browser)
     // ============================================================================
-    
+    // In production: Replace mock data with API calls to Calendar/CRM systems
+    // Would include caching layer (Redis) and real-time sync via WebSocket
+
     const mockEvent = {
       id: 'evt_2025_q4_budget_dps',
       title: 'Q4 Budget Discussion with Denver Public Schools',
@@ -1250,7 +1274,7 @@
     
     function formatTime(dateString) {
       const date = new Date(dateString);
-      const endDate = new Date(date.getTime() + 60 * 60 * 1000); // Add 1 hour for end time
+      const endDate = new Date(date.getTime() + DEFAULT_MEETING_DURATION_MS);
       const options = {
         weekday: 'long',
         month: 'short',
@@ -1271,7 +1295,7 @@
       const date = new Date(dateString);
       const today = new Date();
       const diffTime = Math.abs(today.getTime() - date.getTime());
-      return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      return Math.floor(diffTime / MILLISECONDS_PER_DAY);
     }
     
     function extractTopics(event, org, profiles) {
@@ -1307,15 +1331,15 @@
         new Date(b.date).getTime() - new Date(a.date).getTime()
       );
 
-      const recent = sorted.slice(0, 3);
+      const recent = sorted.slice(0, MAX_INTERACTIONS_IN_SUMMARY);
       const parts = recent.map(interaction => {
         const days = daysAgo(interaction.date);
         const timeAgo = days === 0 ? 'today' : days === 1 ? 'yesterday' : `${days} days ago`;
         let summary = interaction.summary;
 
-        // Add green pulsing dot for recent activity (< 7 days)
+        // Add green pulsing dot for recent activity
         let timeText = `${interaction.type} ${timeAgo}`;
-        if (days < 7) {
+        if (days < RECENT_ACTIVITY_HIGHLIGHT_DAYS) {
           timeText = `<span class="inline-flex items-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>${interaction.type} ${timeAgo}</span>`;
         }
 
@@ -1357,7 +1381,9 @@
 
       return parts.join(' ');
     }
-    
+
+    // In production: This would be an async API call with queue-based processing
+    // Backend would handle memo generation via Redis/Bull.js job queue
     function generateMemo(event, profiles, org) {
       const meetingDate = formatDate(event.datetime);
       const meetingTime = formatTime(event.datetime);
@@ -1516,27 +1542,36 @@
     // ============================================================================
     // UI LOGIC
     // ============================================================================
-    
-    let currentScreen = 1;
-    let generatedMemo = null;
-    
+
+    let activeDemoScreenIndex = 1;
+    let cachedMemoDocument = null;
+
+    /**
+     * Renders the generated memo to the DOM by populating Screen 3 elements
+     * Handles all sections: context, backgrounds, topics, talking points, developments
+     * In production: Would support real-time collaborative editing via WebSocket
+     */
     function renderMemo() {
-      if (!generatedMemo) {
-        console.warn('renderMemo called but no memo generated yet');
+      if (!cachedMemoDocument) {
+        console.warn('renderMemo: No cached memo document available');
         return;
       }
-      
-      const memo = generatedMemo;
+
+      const memo = cachedMemoDocument;
       const screen3 = document.getElementById('screen3');
-      
+
       if (!screen3) {
-        console.error('Screen 3 element not found');
+        console.warn('renderMemo: Screen 3 element not found in DOM');
         return;
       }
-      
+
       // Update title and date
       const titleEl = screen3.querySelector('h1');
-      if (titleEl) titleEl.textContent = memo.meetingTitle;
+      if (titleEl) {
+        titleEl.textContent = memo.meetingTitle;
+      } else {
+        console.warn('renderMemo: Title element not found');
+      }
       
       const dateEl = screen3.querySelector('.text-gray-600.mb-8');
       if (dateEl) {
@@ -1706,38 +1741,38 @@
         return;
       }
       
-      if (currentScreen < 3) {
-        document.getElementById(`screen${currentScreen}`).classList.remove('active');
-        currentScreen++;
+      if (activeDemoScreenIndex < 3) {
+        document.getElementById(`screen${activeDemoScreenIndex}`).classList.remove('active');
+        activeDemoScreenIndex++;
         
         // Generate memo when transitioning from screen 1 to screen 2
-        if (currentScreen === 2 && !generatedMemo) {
-          generatedMemo = generateMemo(mockEvent, mockProfiles, mockOrganization);
+        if (activeDemoScreenIndex === 2 && !cachedMemoDocument) {
+          cachedMemoDocument = generateMemo(mockEvent, mockProfiles, mockOrganization);
         }
         
-        if (currentScreen === 2) {
-          document.getElementById(`screen${currentScreen}`).classList.add('active');
+        if (activeDemoScreenIndex === 2) {
+          document.getElementById(`screen${activeDemoScreenIndex}`).classList.add('active');
           setTimeout(() => {
-            if (currentScreen === 2) {
-              document.getElementById(`screen${currentScreen}`).classList.remove('active');
-              currentScreen = 3;
+            if (activeDemoScreenIndex === 2) {
+              document.getElementById(`screen${activeDemoScreenIndex}`).classList.remove('active');
+              activeDemoScreenIndex = 3;
               // Ensure memo is generated before rendering
-              if (!generatedMemo) {
-                generatedMemo = generateMemo(mockEvent, mockProfiles, mockOrganization);
+              if (!cachedMemoDocument) {
+                cachedMemoDocument = generateMemo(mockEvent, mockProfiles, mockOrganization);
               }
-              document.getElementById(`screen${currentScreen}`).classList.add('active');
+              document.getElementById(`screen${activeDemoScreenIndex}`).classList.add('active');
               renderMemo();
             }
-          }, 3000);
-        } else if (currentScreen === 3) {
+          }, MEMO_GENERATION_DURATION_MS);
+        } else if (activeDemoScreenIndex === 3) {
           // If jumping directly to screen 3, generate memo and render first
-          if (!generatedMemo) {
-            generatedMemo = generateMemo(mockEvent, mockProfiles, mockOrganization);
+          if (!cachedMemoDocument) {
+            cachedMemoDocument = generateMemo(mockEvent, mockProfiles, mockOrganization);
           }
-          document.getElementById(`screen${currentScreen}`).classList.add('active');
+          document.getElementById(`screen${activeDemoScreenIndex}`).classList.add('active');
           renderMemo();
         } else {
-          document.getElementById(`screen${currentScreen}`).classList.add('active');
+          document.getElementById(`screen${activeDemoScreenIndex}`).classList.add('active');
         }
       }
     });
@@ -1745,23 +1780,26 @@
     document.querySelector('#screen1 button').addEventListener('click', (e) => {
       e.stopPropagation();
       document.getElementById('screen1').classList.remove('active');
-      currentScreen = 2;
+      activeDemoScreenIndex = 2;
       document.getElementById('screen2').classList.add('active');
       
       // Generate memo
-      generatedMemo = generateMemo(mockEvent, mockProfiles, mockOrganization);
+      cachedMemoDocument = generateMemo(mockEvent, mockProfiles, mockOrganization);
       
       setTimeout(() => {
-        if (currentScreen === 2) {
+        if (activeDemoScreenIndex === 2) {
           document.getElementById('screen2').classList.remove('active');
-          currentScreen = 3;
+          activeDemoScreenIndex = 3;
           document.getElementById('screen3').classList.add('active');
           renderMemo();
         }
-      }, 3000);
+      }, MEMO_GENERATION_DURATION_MS);
     });
-    
-    // Initialize Screen 1 with event data
+
+    /**
+     * Initializes Screen 1 (calendar view) with mock event data
+     * Populates title, datetime, and location on page load
+     */
     function initScreen1() {
       const formattedDateTime = formatTime(mockEvent.datetime);
       document.getElementById('event-title').textContent = mockEvent.title;
@@ -1822,7 +1860,7 @@
 
       setTimeout(() => {
         toast.classList.remove('active');
-      }, 3000);
+      }, TOAST_DISPLAY_DURATION_MS);
     }
 
     // Export Dropdown Functions
@@ -1856,7 +1894,7 @@
       closeExportDropdown();
 
       const messages = {
-        'briefing-booking': '✓ Linked to Briefing Booking',
+        'briefing-booking': '✓ Synced to Briefing Book',
         pdf: '✓ Memo exported as PDF',
         email: '✓ Email draft created',
         clipboard: '✓ Copied to clipboard',
@@ -2087,7 +2125,7 @@
           </div>
           <div class="approval-step-content">
             <div class="flex items-center justify-between mb-1">
-              <div class="font-semibold text-gray-900">Sarah Chen</div>
+              <div class="font-semibold text-gray-900">Andrea Vasquez</div>
               <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">Approved</span>
             </div>
             <div class="text-sm text-gray-600">Chief of Staff</div>
@@ -2102,7 +2140,7 @@
           </div>
           <div class="approval-step-content">
             <div class="flex items-center justify-between mb-1">
-              <div class="font-semibold text-gray-900">Michael Torres</div>
+              <div class="font-semibold text-gray-900">Robert Nguyen</div>
               <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full font-semibold">Pending Review</span>
             </div>
             <div class="text-sm text-gray-600">Senior Advisor</div>
@@ -2110,7 +2148,7 @@
           </div>
         </div>
 
-        <!-- Step 3: Principal - Waiting -->
+        <!-- Step 3: Mayor - Waiting -->
         <div class="approval-step">
           <div class="approval-step-indicator waiting">
             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 20 20">
@@ -2119,10 +2157,10 @@
           </div>
           <div class="approval-step-content">
             <div class="flex items-center justify-between mb-1">
-              <div class="font-semibold text-gray-400">Mayor Jamie Lawson</div>
+              <div class="font-semibold text-gray-400">Mayor Elena Martinez</div>
               <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full font-semibold">Awaiting</span>
             </div>
-            <div class="text-sm text-gray-400">Principal</div>
+            <div class="text-sm text-gray-400">Mayor</div>
             <div class="text-xs text-gray-400 mt-1">Pending previous approval</div>
           </div>
         </div>
@@ -2135,14 +2173,14 @@
         <div class="comment">
           <div class="flex items-start gap-3">
             <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white font-semibold text-xs">SC</span>
+              <span class="text-white font-semibold text-xs">AV</span>
             </div>
             <div class="flex-1">
               <div class="flex items-center gap-2 mb-1">
-                <span class="font-semibold text-gray-900">Sarah Chen</span>
+                <span class="font-semibold text-gray-900">Andrea Vasquez</span>
                 <span class="text-xs text-gray-500">2 minutes ago</span>
               </div>
-              <p class="text-sm text-gray-700">Looks good! Just make sure to emphasize the partnership opportunity angle when discussing the infrastructure plan with Dr. Johnson. He responds well to collaborative framing.</p>
+              <p class="text-sm text-gray-700">Looks good! Just make sure to emphasize the partnership opportunity angle when discussing the infrastructure plan with Dr. Johnson. She responds well to collaborative framing.</p>
             </div>
           </div>
         </div>
@@ -2309,13 +2347,13 @@
       <div class="share-team-list">
         <h3 class="text-sm font-semibold text-gray-700 mb-4">Team Members</h3>
 
-        <!-- Member 1: Sarah Chen - Has Access -->
+        <!-- Member 1: Andrea Vasquez - Has Access -->
         <div class="team-member-item">
           <div class="team-member-avatar has-access">
-            SC
+            AV
           </div>
           <div class="team-member-info">
-            <div class="team-member-name">Sarah Chen</div>
+            <div class="team-member-name">Andrea Vasquez</div>
             <div class="team-member-role">Chief of Staff</div>
           </div>
           <div class="team-member-status has-access">
@@ -2326,13 +2364,13 @@
           </div>
         </div>
 
-        <!-- Member 2: Michael Torres - Has Access -->
+        <!-- Member 2: Robert Nguyen - Has Access -->
         <div class="team-member-item">
           <div class="team-member-avatar has-access">
-            MT
+            RN
           </div>
           <div class="team-member-info">
-            <div class="team-member-name">Michael Torres</div>
+            <div class="team-member-name">Robert Nguyen</div>
             <div class="team-member-role">Senior Advisor</div>
           </div>
           <div class="team-member-status has-access">
@@ -2343,13 +2381,13 @@
           </div>
         </div>
 
-        <!-- Member 3: Jessica Martinez - Can Add -->
+        <!-- Member 3: Patricia Sullivan - Can Add -->
         <div class="team-member-item">
           <div class="team-member-avatar">
-            JM
+            PS
           </div>
           <div class="team-member-info">
-            <div class="team-member-name">Jessica Martinez</div>
+            <div class="team-member-name">Patricia Sullivan</div>
             <div class="team-member-role">Policy Director</div>
           </div>
           <div class="team-member-status can-add">
@@ -2360,13 +2398,13 @@
           </div>
         </div>
 
-        <!-- Member 4: David Kim - Can Add -->
+        <!-- Member 4: Marcus Freeman - Can Add -->
         <div class="team-member-item">
           <div class="team-member-avatar">
-            DK
+            MF
           </div>
           <div class="team-member-info">
-            <div class="team-member-name">David Kim</div>
+            <div class="team-member-name">Marcus Freeman</div>
             <div class="team-member-role">Communications Manager</div>
           </div>
           <div class="team-member-status can-add">
@@ -2377,13 +2415,13 @@
           </div>
         </div>
 
-        <!-- Member 5: Rachel Green - Can Add -->
+        <!-- Member 5: Lauren Bennett - Can Add -->
         <div class="team-member-item">
           <div class="team-member-avatar">
-            RG
+            LB
           </div>
           <div class="team-member-info">
-            <div class="team-member-name">Rachel Green</div>
+            <div class="team-member-name">Lauren Bennett</div>
             <div class="team-member-role">Executive Assistant</div>
           </div>
           <div class="team-member-status can-add">
@@ -2394,13 +2432,13 @@
           </div>
         </div>
 
-        <!-- Member 6: James Wilson - Can Add -->
+        <!-- Member 6: Christopher Hayes - Can Add -->
         <div class="team-member-item">
           <div class="team-member-avatar">
-            JW
+            CH
           </div>
           <div class="team-member-info">
-            <div class="team-member-name">James Wilson</div>
+            <div class="team-member-name">Christopher Hayes</div>
             <div class="team-member-role">Budget Analyst</div>
           </div>
           <div class="team-member-status can-add">
@@ -2443,7 +2481,7 @@
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
       </svg>
-      Link to Briefing Booking
+      Sync to Briefing Book
     </button>
     <button class="export-option" data-action="pdf">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
