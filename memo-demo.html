@@ -241,6 +241,145 @@
     }
 
     /* ============================================================================
+       REMINDER MODAL
+       ============================================================================ */
+    .reminder-modal {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .reminder-modal.active {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .reminder-modal-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+    }
+
+    .reminder-modal-content {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 500px;
+      background: white;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .reminder-modal.active .reminder-modal-content {
+      transform: translateX(0);
+    }
+
+    .reminder-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .reminder-options {
+      padding: 24px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .reminder-options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .reminder-option-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+
+    .reminder-option-card:hover {
+      border-color: #000;
+      background: #f9fafb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .reminder-icon {
+      width: 40px;
+      height: 40px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #374151;
+    }
+
+    .reminder-option-card:hover .reminder-icon {
+      background: #000;
+      color: white;
+    }
+
+    .reminder-option-text {
+      flex: 1;
+    }
+
+    .reminder-option-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .reminder-option-subtitle {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .reminder-details {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .reminder-selected {
+      margin-bottom: 16px;
+    }
+
+    .reminder-actions {
+      display: flex;
+      gap: 12px;
+      padding: 24px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    /* ============================================================================
        TOAST NOTIFICATION
        ============================================================================ */
     .toast-notification {
@@ -389,6 +528,150 @@
 
     .smart-alert-link:hover {
       opacity: 0.8;
+    }
+
+    /* ============================================================================
+       SHARE WITH TEAM MODAL
+       ============================================================================ */
+    .share-modal {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .share-modal.active {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .share-modal-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+    }
+
+    .share-modal-content {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 600px;
+      background: white;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .share-modal.active .share-modal-content {
+      transform: translateX(0);
+    }
+
+    .share-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .share-team-list {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .team-member-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      transition: all 0.2s ease;
+    }
+
+    .team-member-item:hover {
+      background: white;
+      border-color: #d1d5db;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .team-member-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .team-member-avatar.has-access {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    .team-member-info {
+      flex: 1;
+    }
+
+    .team-member-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .team-member-role {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .team-member-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+
+    .team-member-status.has-access {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .team-member-status.can-add {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .share-actions {
+      display: flex;
+      gap: 12px;
+      padding: 24px;
+      border-top: 1px solid #e5e7eb;
     }
   </style>
 </head>
@@ -572,13 +855,13 @@
             </svg>
             Refresh data
           </button>
-          <button class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
+          <button id="share-team-btn-toolbar" class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
             </svg>
             Share with team
           </button>
-          <button class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
+          <button id="set-reminder-btn" class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
@@ -1507,6 +1790,28 @@
       modal.classList.remove('active');
     }
 
+    // Reminder Modal Functions
+    function openReminderModal() {
+      const modal = document.getElementById('reminder-modal');
+      modal.classList.add('active');
+    }
+
+    function closeReminderModal() {
+      const modal = document.getElementById('reminder-modal');
+      modal.classList.remove('active');
+    }
+
+    // Share Modal Functions
+    function openShareModal() {
+      const modal = document.getElementById('share-modal');
+      modal.classList.add('active');
+    }
+
+    function closeShareModal() {
+      const modal = document.getElementById('share-modal');
+      modal.classList.remove('active');
+    }
+
     // Toast Notification Function
     function showToast(message) {
       const toast = document.getElementById('toast-notification');
@@ -1550,6 +1855,7 @@
       closeExportDropdown();
 
       const messages = {
+        'briefing-booking': '✓ Linked to Briefing Booking',
         pdf: '✓ Memo exported as PDF',
         email: '✓ Email draft created',
         clipboard: '✓ Copied to clipboard',
@@ -1603,12 +1909,107 @@
         });
       }
 
-      // ESC key to close modal
+      // Reminder Modal
+      const setReminderBtn = document.getElementById('set-reminder-btn');
+      const closeReminderBtn = document.getElementById('close-reminder-modal');
+      const cancelReminderBtn = document.getElementById('cancel-reminder-btn');
+      const confirmReminderBtn = document.getElementById('confirm-reminder-btn');
+      const reminderOverlay = document.querySelector('.reminder-modal-overlay');
+
+      if (setReminderBtn) {
+        setReminderBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openReminderModal();
+        });
+      }
+
+      if (closeReminderBtn) {
+        closeReminderBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeReminderModal();
+        });
+      }
+
+      if (cancelReminderBtn) {
+        cancelReminderBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeReminderModal();
+        });
+      }
+
+      if (confirmReminderBtn) {
+        confirmReminderBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          showToast('✓ Reminder set for 1 hour before meeting');
+          closeReminderModal();
+        });
+      }
+
+      if (reminderOverlay) {
+        reminderOverlay.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeReminderModal();
+        });
+      }
+
+      // Share Modal
+      const shareTeamBtnToolbar = document.getElementById('share-team-btn-toolbar');
+      const closeShareBtn = document.getElementById('close-share-modal');
+      const cancelShareBtn = document.getElementById('cancel-share-btn');
+      const shareTeamBtn = document.getElementById('share-team-btn');
+      const shareOverlay = document.querySelector('.share-modal-overlay');
+
+      if (shareTeamBtnToolbar) {
+        shareTeamBtnToolbar.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openShareModal();
+        });
+      }
+
+      if (closeShareBtn) {
+        closeShareBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeShareModal();
+        });
+      }
+
+      if (cancelShareBtn) {
+        cancelShareBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeShareModal();
+        });
+      }
+
+      if (shareTeamBtn) {
+        shareTeamBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          showToast('✓ Shared with team successfully');
+          closeShareModal();
+        });
+      }
+
+      if (shareOverlay) {
+        shareOverlay.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeShareModal();
+        });
+      }
+
+      // ESC key to close modals
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-          const modal = document.getElementById('approval-modal');
-          if (modal && modal.classList.contains('active')) {
+          const approvalModal = document.getElementById('approval-modal');
+          const reminderModal = document.getElementById('reminder-modal');
+          const shareModal = document.getElementById('share-modal');
+
+          if (approvalModal && approvalModal.classList.contains('active')) {
             closeApprovalModal();
+          }
+          if (reminderModal && reminderModal.classList.contains('active')) {
+            closeReminderModal();
+          }
+          if (shareModal && shareModal.classList.contains('active')) {
+            closeShareModal();
           }
           if (exportDropdownOpen) {
             closeExportDropdown();
@@ -1761,6 +2162,270 @@
     </div>
   </div>
 
+  <!-- Reminder Modal -->
+  <div id="reminder-modal" class="reminder-modal">
+    <div class="reminder-modal-overlay"></div>
+    <div class="reminder-modal-content">
+      <!-- Header -->
+      <div class="reminder-modal-header">
+        <h2 class="text-xl font-bold text-gray-900">Set Reminder</h2>
+        <button id="close-reminder-modal" class="text-gray-400 hover:text-gray-600 transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Reminder Options -->
+      <div class="reminder-options">
+        <h3 class="text-sm font-semibold text-gray-700 mb-4">Quick Options</h3>
+
+        <div class="reminder-options-grid">
+          <!-- 1 Hour -->
+          <button class="reminder-option-card">
+            <div class="reminder-icon">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="reminder-option-text">
+              <div class="reminder-option-title">1 Hour</div>
+              <div class="reminder-option-subtitle">Before meeting</div>
+            </div>
+          </button>
+
+          <!-- Tomorrow -->
+          <button class="reminder-option-card">
+            <div class="reminder-icon">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="reminder-option-text">
+              <div class="reminder-option-title">Tomorrow</div>
+              <div class="reminder-option-subtitle">9:00 AM</div>
+            </div>
+          </button>
+
+          <!-- 1 Week -->
+          <button class="reminder-option-card">
+            <div class="reminder-icon">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="reminder-option-text">
+              <div class="reminder-option-title">1 Week</div>
+              <div class="reminder-option-subtitle">Nov 14, 9:00 AM</div>
+            </div>
+          </button>
+
+          <!-- Custom -->
+          <button class="reminder-option-card">
+            <div class="reminder-icon">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
+            </div>
+            <div class="reminder-option-text">
+              <div class="reminder-option-title">Custom</div>
+              <div class="reminder-option-subtitle">Pick date & time</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reminder Details (shown after selection) -->
+      <div class="reminder-details">
+        <h3 class="text-sm font-semibold text-gray-700 mb-3">Reminder Details</h3>
+
+        <div class="reminder-selected">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <div class="font-semibold text-gray-900">Meeting Reminder</div>
+              <div class="text-sm text-gray-600">Q4 Budget Discussion with Denver Public Schools</div>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-gray-600">Remind me:</span>
+              <span class="text-sm font-semibold text-gray-900">1 hour before</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Meeting time:</span>
+              <span class="text-sm font-semibold text-gray-900">Nov 15, 2:00 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional Note -->
+        <div class="mt-4">
+          <label class="text-sm font-semibold text-gray-700 block mb-2">Add a note (optional)</label>
+          <textarea
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent resize-none"
+            rows="3"
+            placeholder="E.g., Review talking points beforehand..."
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="reminder-actions">
+        <button id="confirm-reminder-btn" class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition font-semibold flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+          </svg>
+          Set Reminder
+        </button>
+        <button id="cancel-reminder-btn" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition font-semibold">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share with Team Modal -->
+  <div id="share-modal" class="share-modal">
+    <div class="share-modal-overlay"></div>
+    <div class="share-modal-content">
+      <!-- Header -->
+      <div class="share-modal-header">
+        <h2 class="text-xl font-bold text-gray-900">Share with Team</h2>
+        <button id="close-share-modal" class="text-gray-400 hover:text-gray-600 transition">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Team Members List -->
+      <div class="share-team-list">
+        <h3 class="text-sm font-semibold text-gray-700 mb-4">Team Members</h3>
+
+        <!-- Member 1: Sarah Chen - Has Access -->
+        <div class="team-member-item">
+          <div class="team-member-avatar has-access">
+            SC
+          </div>
+          <div class="team-member-info">
+            <div class="team-member-name">Sarah Chen</div>
+            <div class="team-member-role">Chief of Staff</div>
+          </div>
+          <div class="team-member-status has-access">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Has Access
+          </div>
+        </div>
+
+        <!-- Member 2: Michael Torres - Has Access -->
+        <div class="team-member-item">
+          <div class="team-member-avatar has-access">
+            MT
+          </div>
+          <div class="team-member-info">
+            <div class="team-member-name">Michael Torres</div>
+            <div class="team-member-role">Senior Advisor</div>
+          </div>
+          <div class="team-member-status has-access">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Has Access
+          </div>
+        </div>
+
+        <!-- Member 3: Jessica Martinez - Can Add -->
+        <div class="team-member-item">
+          <div class="team-member-avatar">
+            JM
+          </div>
+          <div class="team-member-info">
+            <div class="team-member-name">Jessica Martinez</div>
+            <div class="team-member-role">Policy Director</div>
+          </div>
+          <div class="team-member-status can-add">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add
+          </div>
+        </div>
+
+        <!-- Member 4: David Kim - Can Add -->
+        <div class="team-member-item">
+          <div class="team-member-avatar">
+            DK
+          </div>
+          <div class="team-member-info">
+            <div class="team-member-name">David Kim</div>
+            <div class="team-member-role">Communications Manager</div>
+          </div>
+          <div class="team-member-status can-add">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add
+          </div>
+        </div>
+
+        <!-- Member 5: Rachel Green - Can Add -->
+        <div class="team-member-item">
+          <div class="team-member-avatar">
+            RG
+          </div>
+          <div class="team-member-info">
+            <div class="team-member-name">Rachel Green</div>
+            <div class="team-member-role">Executive Assistant</div>
+          </div>
+          <div class="team-member-status can-add">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add
+          </div>
+        </div>
+
+        <!-- Member 6: James Wilson - Can Add -->
+        <div class="team-member-item">
+          <div class="team-member-avatar">
+            JW
+          </div>
+          <div class="team-member-info">
+            <div class="team-member-name">James Wilson</div>
+            <div class="team-member-role">Budget Analyst</div>
+          </div>
+          <div class="team-member-status can-add">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="share-actions">
+        <button id="share-team-btn" class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition font-semibold flex items-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          Share
+        </button>
+        <button id="cancel-share-btn" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition font-semibold">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
   <div id="toast-notification" class="toast-notification">
     <div class="toast-content">
@@ -1773,6 +2438,12 @@
 
   <!-- Export Dropdown Menu -->
   <div id="export-dropdown" class="export-dropdown">
+    <button class="export-option" data-action="briefing-booking">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+      </svg>
+      Link to Briefing Booking
+    </button>
     <button class="export-option" data-action="pdf">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
