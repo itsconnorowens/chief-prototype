@@ -32,8 +32,8 @@
     }
     
     .loading-spinner {
-      border: 3px solid rgba(243, 244, 246, 0.3);
-      border-top: 3px solid #3b82f6;
+      border: 3px solid rgba(229, 231, 235, 0.5);
+      border-top: 3px solid #000000;
       border-radius: 50%;
       width: 40px;
       height: 40px;
@@ -48,11 +48,11 @@
     .step-completed {
       color: #10b981;
     }
-    
+
     .step-in-progress {
-      color: #3b82f6;
+      color: #374151;
     }
-    
+
     .step-pending {
       color: #9ca3af;
     }
@@ -124,15 +124,12 @@
       <div class="flex items-center justify-between mb-8">
         <h1 class="text-2xl font-bold text-gray-900">Calendar</h1>
         <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-            <span class="text-white font-bold text-sm">C</span>
-          </div>
-          <span class="text-sm font-semibold text-gray-700">Chief AI</span>
+          <span class="text-sm font-semibold text-gray-900">Chief AI</span>
         </div>
       </div>
       
       <!-- Event Card -->
-      <div class="bg-white rounded-xl shadow-lg p-8">
+      <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-8">
         <h2 id="event-title" class="text-3xl font-bold text-gray-900 mb-6">Q4 Budget Discussion with Denver Public Schools</h2>
         
         <!-- Date/Time/Location -->
@@ -157,7 +154,7 @@
           <h3 class="text-sm font-semibold text-gray-700 mb-4">Attendees</h3>
           <div class="space-y-4">
             <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <div class="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center flex-shrink-0">
                 <span class="text-white font-semibold text-sm">AJ</span>
               </div>
                 <div class="flex-1">
@@ -167,7 +164,7 @@
               </div>
             </div>
             <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <div class="w-12 h-12 bg-gray-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <span class="text-white font-semibold text-sm">MR</span>
               </div>
               <div class="flex-1">
@@ -187,7 +184,7 @@
         </div>
         
         <!-- Generate Memo Button -->
-        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center shadow-md">
+        <button class="w-full bg-black hover:bg-gray-800 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
@@ -198,39 +195,62 @@
   </div>
   
   <!-- Screen 2: Loading State -->
-  <div id="screen2" class="screen" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+  <div id="screen2" class="screen bg-gray-50">
     <div class="min-h-screen flex items-center justify-center px-6">
-      <div class="text-center text-white max-w-md">
+      <div class="text-center max-w-md">
         <!-- Spinner -->
         <div class="mb-8 flex justify-center">
           <div class="loading-spinner"></div>
         </div>
         
         <!-- Title -->
-        <h2 class="text-2xl font-bold mb-2">Generating your memo...</h2>
-        <p class="text-blue-100 mb-8">This usually takes 5-10 seconds</p>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Generating your memo...</h2>
+        <p class="text-gray-600 mb-8">This usually takes 5-10 seconds</p>
         
         <!-- Progress Steps -->
-        <div class="space-y-4 text-left bg-white/10 backdrop-blur-sm rounded-lg p-6">
-          <div class="flex items-center space-x-3">
-            <svg class="w-5 h-5 step-completed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-            <span class="text-white">Fetching attendee profiles</span>
-            </div>
-          <div class="flex items-center space-x-3">
-            <svg class="w-5 h-5 step-completed" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        <div class="space-y-3 text-left bg-white rounded-lg p-6 max-w-md mx-auto">
+          <!-- Step 1: Completed -->
+          <div class="flex items-center gap-3 text-gray-700">
+            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
             </svg>
-            <span class="text-white">Gathering recent news</span>
-          </div>
-          <div class="flex items-center space-x-3">
-            <div class="loading-spinner w-5 h-5 border-2 border-white/30 border-t-white"></div>
-            <span class="text-white">Analyzing relationships</span>
+            <div class="flex-1">
+              <div class="font-semibold">Found 2 attendee profiles</div>
+              <div class="text-sm text-gray-500">Dr. Johnson (12 interactions), Rodriguez (8 interactions)</div>
             </div>
-          <div class="flex items-center space-x-3">
-            <div class="w-5 h-5 rounded-full border-2 border-white/30"></div>
-            <span class="text-white/70">Generating draft</span>
+          </div>
+
+          <!-- Step 2: Completed -->
+          <div class="flex items-center gap-3 text-gray-700">
+            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <div class="flex-1">
+              <div class="font-semibold">Retrieved 3 recent news articles</div>
+              <div class="text-sm text-gray-500">Denver Post, Chalkbeat Colorado, Denver Gazette</div>
+            </div>
+          </div>
+
+          <!-- Step 3: In Progress -->
+          <div class="flex items-center gap-3 text-gray-700">
+            <svg class="w-5 h-5 flex-shrink-0 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+            </svg>
+            <div class="flex-1">
+              <div class="font-semibold">Analyzing 23 past interactions</div>
+              <div class="text-sm text-gray-600">Identifying patterns and key topics...</div>
+            </div>
+          </div>
+
+          <!-- Step 4: Pending -->
+          <div class="flex items-center gap-3 text-gray-400">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 20 20">
+              <circle cx="10" cy="10" r="8" stroke-width="2" />
+            </svg>
+            <div class="flex-1">
+              <div class="font-semibold">Generating draft memo</div>
+              <div class="text-sm text-gray-400">Applying template and synthesizing insights...</div>
+            </div>
           </div>
         </div>
       </div>
@@ -247,27 +267,48 @@
           <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
             Export
           </button>
-          <button class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+          <button class="px-4 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-colors">
             Add to Calendar
           </button>
             </div>
           </div>
       
       <!-- Toolbar (fake) -->
-      <div class="bg-gray-50 border border-gray-200 rounded-t-lg p-2 mb-0 flex items-center space-x-2">
-        <button class="p-2 hover:bg-gray-200 rounded text-gray-600">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-          </svg>
-        </button>
-        <button class="p-2 hover:bg-gray-200 rounded text-gray-600">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        <div class="flex-1"></div>
-        <span class="text-xs text-gray-500">Edit mode</span>
-          </div>
+      <div class="border-b p-4 flex items-center justify-between bg-gray-50">
+        <!-- Left: Edit tools -->
+        <div class="flex items-center gap-2">
+          <button class="p-2 hover:bg-gray-200 rounded transition" title="Edit">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </button>
+          <div class="w-px h-6 bg-gray-300"></div>
+          <button class="p-2 hover:bg-gray-200 rounded transition font-bold text-gray-700">B</button>
+          <button class="p-2 hover:bg-gray-200 rounded transition italic text-gray-700">I</button>
+        </div>
+
+        <!-- Right: Quick actions -->
+        <div class="flex items-center gap-3">
+          <button class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Refresh data
+          </button>
+          <button class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            Share with team
+          </button>
+          <button class="text-sm px-3 py-1.5 text-gray-700 hover:bg-gray-200 rounded transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+            Set reminder
+          </button>
+        </div>
+      </div>
       
       <!-- Memo Content -->
       <div class="bg-white border border-gray-200 border-t-0 rounded-b-lg p-8 prose prose-lg max-w-none">
@@ -279,8 +320,19 @@
         </div>
         
         <!-- Meeting Context Callout -->
-        <div class="bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-6 mb-8">
-          <h2 class="text-lg font-semibold text-gray-900 mb-2">Meeting Context</h2>
+        <div class="bg-gray-50 border-l-4 border-gray-600 rounded-r-lg p-6 mb-8">
+          <div class="flex items-center flex-wrap gap-2 mb-2">
+            <h2 class="text-lg font-semibold text-gray-900">Meeting Context</h2>
+            <div class="inline-flex items-center gap-2">
+              <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                High confidence
+              </span>
+              <span class="text-xs text-gray-500">Based on 5 data sources</span>
+            </div>
+          </div>
           <p class="text-gray-700 leading-relaxed">
             Loading...
           </p>
@@ -288,7 +340,18 @@
         
         <!-- Attendee Backgrounds -->
         <div class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Attendee Backgrounds</h2>
+          <div class="flex items-center flex-wrap gap-2 mb-4">
+            <h2 class="text-2xl font-bold text-gray-900">Attendee Backgrounds</h2>
+            <div class="inline-flex items-center gap-2">
+              <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                High confidence
+              </span>
+              <span class="text-xs text-gray-500">Based on 12 data points</span>
+            </div>
+          </div>
           <div id="attendee-backgrounds">
             <!-- Dynamically populated -->
           </div>
@@ -296,7 +359,18 @@
         
         <!-- Key Topics -->
         <div class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Key Topics</h2>
+          <div class="flex items-center flex-wrap gap-2 mb-4">
+            <h2 class="text-2xl font-bold text-gray-900">Key Topics</h2>
+            <div class="inline-flex items-center gap-2">
+              <span class="text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full font-semibold flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                Medium confidence
+              </span>
+              <span class="text-xs text-gray-500">Inferred from description + recent news</span>
+            </div>
+          </div>
           <ul id="key-topics" class="space-y-2 list-none">
             <!-- Dynamically populated -->
           </ul>
@@ -304,7 +378,18 @@
         
         <!-- Suggested Talking Points -->
         <div class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Suggested Talking Points</h2>
+          <div class="flex items-center flex-wrap gap-2 mb-4">
+            <h2 class="text-2xl font-bold text-gray-900">Suggested Talking Points</h2>
+            <div class="inline-flex items-center gap-2">
+              <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                High confidence
+              </span>
+              <span class="text-xs text-gray-500">Based on 6 recent interactions</span>
+            </div>
+          </div>
           <div id="talking-points" class="space-y-4">
             <!-- Dynamically populated -->
           </div>
@@ -312,7 +397,18 @@
         
         <!-- Recent Developments -->
         <div class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Recent Developments</h2>
+          <div class="flex items-center flex-wrap gap-2 mb-4">
+            <h2 class="text-2xl font-bold text-gray-900">Recent Developments</h2>
+            <div class="inline-flex items-center gap-2">
+              <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-semibold flex items-center gap-1">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                Verified
+              </span>
+              <span class="text-xs text-gray-500">3 sources confirmed</span>
+            </div>
+          </div>
           <div id="recent-developments" class="space-y-4">
             <!-- Dynamically populated -->
           </div>
@@ -327,13 +423,52 @@
         </div>
         
         <!-- Metadata Footer -->
-        <div class="border-t border-gray-200 pt-6 mt-8">
-          <div class="flex items-center justify-between flex-wrap gap-4">
-            <div class="text-sm text-gray-500">
-              <span class="font-medium">Data sources:</span> <span id="data-sources">Loading...</span>
+        <div class="border-t border-gray-200 pt-6 mt-8 space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="text-sm">
+              <p class="font-semibold text-gray-700 mb-2">Data Sources & Confidence</p>
+              <div class="space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Event calendar</span>
+                  <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">High</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Contact profiles</span>
+                  <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">High</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Organization database</span>
+                  <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">High</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">News aggregator</span>
+                  <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-semibold">Verified</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">Interaction history</span>
+                  <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full font-semibold">High</span>
+                </div>
+              </div>
             </div>
-            <div class="flex items-center space-x-2">
-              <span id="confidence" class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">Loading...</span>
+            <div class="text-sm space-y-3">
+              <div>
+                <p class="font-semibold text-gray-700 mb-1">Last Updated</p>
+                <p id="last-updated" class="text-gray-600">Loading...</p>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-700 mb-1">Data Freshness</p>
+                <div class="flex items-center gap-2">
+                  <div class="flex-1 bg-gray-200 rounded-full h-2">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: 95%"></div>
+                  </div>
+                  <span class="text-xs text-gray-600">95% current</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">All sources updated within 24 hours</p>
+              </div>
+              <div>
+                <p class="font-semibold text-gray-700 mb-1">Overall Confidence</p>
+                <span id="confidence" class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">Loading...</span>
+              </div>
             </div>
           </div>
         </div>
@@ -380,7 +515,7 @@
           {
             date: '2025-10-28',
             type: 'email',
-            summary: 'Follow-up on teacher retention program proposal. Expressed interest in exploring partnership opportunities.'
+            summary: 'Follow-up on teacher retention program proposal. Expressed interest in exploring partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span>.'
           },
           {
             date: '2025-09-15',
@@ -545,18 +680,59 @@
     
     function formatInteractionHistory(interactions) {
       if (interactions.length === 0) return 'No recent interactions on record.';
-      
-      const sorted = interactions.sort((a, b) => 
+
+      const sorted = interactions.sort((a, b) =>
         new Date(b.date).getTime() - new Date(a.date).getTime()
       );
-      
+
       const recent = sorted.slice(0, 3);
       const parts = recent.map(interaction => {
         const days = daysAgo(interaction.date);
         const timeAgo = days === 0 ? 'today' : days === 1 ? 'yesterday' : `${days} days ago`;
-        return `${interaction.type} ${timeAgo}: ${interaction.summary}`;
+        let summary = interaction.summary;
+
+        // Add green pulsing dot for recent activity (< 7 days)
+        let timeText = `${interaction.type} ${timeAgo}`;
+        if (days < 7) {
+          timeText = `<span class="inline-flex items-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>${interaction.type} ${timeAgo}</span>`;
+        }
+
+        // Highlight concern/risk phrases with yellow background
+        const concernPhrases = [
+          'Concerned about Q4 budget constraints',
+          'budget constraints',
+          'concerned about',
+          'challenges',
+          'concerns'
+        ];
+
+        concernPhrases.forEach(phrase => {
+          const regex = new RegExp(`(${phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+          if (summary.match(regex) && !summary.includes('bg-yellow-50')) {
+            summary = summary.replace(regex, '<span class="bg-yellow-50 border-l-2 border-yellow-400 pl-2 py-0.5">$1</span>');
+          }
+        });
+
+        // Highlight opportunity phrases with green background
+        const opportunityPhrases = [
+          'Expressed interest in exploring partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span>',
+          'partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span>',
+          'positive feedback',
+          'interest in exploring',
+          'opportunities'
+        ];
+
+        opportunityPhrases.forEach(phrase => {
+          const regex = new RegExp(`(${phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+          // Only highlight if not already highlighted by concern phrases
+          if (summary.match(regex) && !summary.includes('bg-yellow-50') && !summary.includes('bg-green-50')) {
+            summary = summary.replace(regex, '<span class="bg-green-50 px-1 py-0.5 rounded">$1</span>');
+          }
+        });
+
+        return `${timeText}: ${summary}`;
       });
-      
+
       return parts.join(' ');
     }
     
@@ -569,7 +745,7 @@
         `The discussion will focus on ${event.description || 'upcoming initiatives and collaboration opportunities'}. ` +
         `This is a ${event.meetingType} meeting with ${profiles.length} key attendee${profiles.length > 1 ? 's' : ''} from ${org.name}. ` +
         `Given recent developments including ${org.recentNews[0]?.headline || 'organizational initiatives'}, ` +
-        `this meeting presents an opportunity to align on priorities and explore partnership opportunities.`;
+        `this meeting presents an opportunity to align on priorities and explore partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span>.`;
       
       const attendeeBackgrounds = profiles.map(profile => {
         const recentInteractions = profile.recentInteractions
@@ -601,13 +777,13 @@
         if (latestNews) {
           suggestedTalkingPoints.push(
             `Reference the ${latestNews.headline} (${latestNews.source}, ${formatDateShort(latestNews.date)}). ` +
-            `Discuss how the proposed $50M infrastructure plan aligns with city priorities and explore partnership funding opportunities.`
+            `Discuss how the proposed $50M infrastructure plan aligns with city priorities and explore partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span>.`
           );
         } else {
           const cfo = profiles.find(p => p.title.includes('CFO'));
           const days = cfo?.recentInteractions[0]?.date ? daysAgo(cfo.recentInteractions[0].date) : 0;
           suggestedTalkingPoints.push(
-            `Address Q4 budget constraints mentioned by CFO Rodriguez in recent email (${days} days ago). ` +
+            `Address <span class="bg-yellow-50 border-l-2 border-yellow-400 pl-2 py-0.5">Q4 budget constraints</span> mentioned by CFO Rodriguez in recent email (${days} days ago). ` +
             `Discuss multi-year planning approach to provide budget certainty.`
           );
         }
@@ -630,8 +806,8 @@
         );
         if (retentionNews) {
           suggestedTalkingPoints.push(
-            `Acknowledge the positive teacher retention results (8% improvement) mentioned in recent news. ` +
-            `Discuss how city can continue supporting compensation initiatives and explore additional partnership opportunities.`
+            `Acknowledge the <span class="bg-green-50 px-1 py-0.5 rounded">positive teacher retention results</span> (8% improvement) mentioned in recent news. ` +
+            `Discuss how city can continue supporting compensation initiatives and explore additional partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span>.`
           );
         }
         
@@ -640,7 +816,7 @@
           const days = drJohnson.recentInteractions[0]?.date ? daysAgo(drJohnson.recentInteractions[0].date) : 0;
           suggestedTalkingPoints.push(
             `Dr. Johnson has prioritized teacher retention and compensation. ` +
-            `Reference her previous interest in partnership opportunities (from ${days} days ago) and discuss concrete next steps.`
+            `Reference her previous interest in partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span> (from ${days} days ago) and discuss concrete next steps.`
           );
         }
       }
@@ -653,7 +829,7 @@
         if (programNews) {
           suggestedTalkingPoints.push(
             `Address the proposal for expanded after-school programs to 20 additional schools. ` +
-            `Discuss partnership opportunities with city recreation centers and explore funding mechanisms for underserved neighborhoods.`
+            `Discuss partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span> with city recreation centers and explore funding mechanisms for underserved neighborhoods.`
           );
         }
       }
@@ -670,7 +846,7 @@
       
       const relationshipHistory = `The relationship with ${org.name} is characterized as a ${org.relationship} relationship. ` +
         `Recent interactions have been positive, with ${profiles.length} key contact${profiles.length > 1 ? 's' : ''} engaged in regular communication. ` +
-        `The organization has been responsive to city initiatives and has shown interest in expanded partnership opportunities. ` +
+        `The organization has been responsive to city initiatives and has shown interest in expanded partnership <span class="bg-green-50 px-1 py-0.5 rounded">opportunities</span>. ` +
         `Communication patterns suggest preference for detailed, data-driven discussions with advance preparation.`;
       
       const hasRecentInteractions = profiles.every(p => 
@@ -723,10 +899,18 @@
     let generatedMemo = null;
     
     function renderMemo() {
-      if (!generatedMemo) return;
+      if (!generatedMemo) {
+        console.warn('renderMemo called but no memo generated yet');
+        return;
+      }
       
       const memo = generatedMemo;
       const screen3 = document.getElementById('screen3');
+      
+      if (!screen3) {
+        console.error('Screen 3 element not found');
+        return;
+      }
       
       // Update title and date
       const titleEl = screen3.querySelector('h1');
@@ -738,14 +922,14 @@
       }
       
       // Update meeting context
-      const contextEl = screen3.querySelector('.bg-blue-50 p.text-gray-700');
+      const contextEl = screen3.querySelector('.bg-gray-50 p.text-gray-700');
       if (contextEl) contextEl.textContent = memo.sections.meetingContext;
       
       // Update attendee backgrounds
       const attendeeContainer = screen3.querySelector('#attendee-backgrounds');
       if (attendeeContainer) {
         attendeeContainer.innerHTML = memo.sections.attendeeBackgrounds.map((attendee, idx) => `
-          <div class="border-l-4 border-purple-500 bg-purple-50/30 rounded-r-lg p-6 ${idx < memo.sections.attendeeBackgrounds.length - 1 ? 'mb-4' : ''}">
+          <div class="border-l-4 border-gray-600 bg-gray-50 rounded-r-lg p-6 ${idx < memo.sections.attendeeBackgrounds.length - 1 ? 'mb-4' : ''}">
             <h3 class="text-lg font-semibold text-gray-900 mb-2">${attendee.name}</h3>
             <p class="text-gray-700 leading-relaxed">${attendee.context}</p>
           </div>
@@ -768,14 +952,67 @@
       // Update talking points
       const talkingPointsContainer = screen3.querySelector('#talking-points');
       if (talkingPointsContainer) {
-        talkingPointsContainer.innerHTML = memo.sections.suggestedTalkingPoints.map((point, idx) => `
-          <div class="bg-amber-50 border-l-4 border-amber-400 rounded-r-lg p-5">
+        talkingPointsContainer.innerHTML = memo.sections.suggestedTalkingPoints.map((point, idx) => {
+          let html = `
+          <div class="bg-gray-50 border-l-4 border-gray-400 rounded-r-lg p-5">
             <div class="flex items-start">
-              <div class="w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">${idx + 1}</div>
+              <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">${idx + 1}</div>
               <p class="text-gray-800 leading-relaxed">${point}</p>
             </div>
-          </div>
-        `).join('');
+          `;
+
+          // Add AI suggestion boxes after talking points #2 and #4
+          if (idx === 1) {
+            // Suggestion for talking point #2
+            html += `
+            <div class="mt-2 text-xs bg-gray-50 border border-gray-300 rounded-lg p-3 flex items-start gap-2">
+              <svg class="w-4 h-4 text-gray-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <div class="flex-1">
+                <div class="text-gray-900 font-semibold mb-1">AI Suggestion</div>
+                <div class="text-gray-700 leading-relaxed">
+                  Add specific school names from the 15 identified to make the discussion more concrete and show you've done your homework.
+                </div>
+                <div class="flex items-center gap-3 mt-2">
+                  <button class="text-gray-900 font-semibold hover:text-gray-700 transition">
+                    Apply suggestion
+                  </button>
+                  <button class="text-gray-500 hover:text-gray-700 transition">
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            </div>
+            `;
+          } else if (idx === 3) {
+            // Suggestion for talking point #4
+            html += `
+            <div class="mt-2 text-xs bg-gray-50 border border-gray-300 rounded-lg p-3 flex items-start gap-2">
+              <svg class="w-4 h-4 text-gray-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <div class="flex-1">
+                <div class="text-gray-900 font-semibold mb-1">AI Suggestion</div>
+                <div class="text-gray-700 leading-relaxed">
+                  Reference specific dollar amount or percentage from her proposal email (from 10 days ago) to ground this in concrete numbers.
+                </div>
+                <div class="flex items-center gap-3 mt-2">
+                  <button class="text-gray-900 font-semibold hover:text-gray-700 transition">
+                    Apply suggestion
+                  </button>
+                  <button class="text-gray-500 hover:text-gray-700 transition">
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            </div>
+            `;
+          }
+
+          html += `</div>`;
+          return html;
+        }).join('');
       }
       
       // Update recent developments
@@ -783,12 +1020,27 @@
       if (developmentsContainer) {
         developmentsContainer.innerHTML = memo.sections.recentDevelopments.map(dev => {
           const newsItem = mockOrganization.recentNews.find(n => n.headline === dev.topic);
-          const dateStr = newsItem ? formatDateShort(newsItem.date) : '';
+          let dateStr = newsItem ? formatDateShort(newsItem.date) : '';
+
+          // Bold dates within 30 days of Nov 15, 2025
+          if (newsItem && daysAgo(newsItem.date) <= 30) {
+            dateStr = `<strong class="font-semibold">${dateStr}</strong>`;
+          }
           return `
             <div class="border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow">
               <div class="flex items-start justify-between mb-2">
-                <h3 class="text-lg font-semibold text-gray-900">${dev.topic}</h3>
-                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">${dateStr}</span>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h3 class="text-lg font-semibold text-gray-900">${dev.topic}</h3>
+                    <span class="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-semibold flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                      </svg>
+                      Verified
+                    </span>
+                  </div>
+                </div>
+                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded ml-2">${dateStr}</span>
               </div>
               <p class="text-gray-700 leading-relaxed">${dev.detail}</p>
             </div>
@@ -807,12 +1059,20 @@
       if (dataSourcesEl) {
         dataSourcesEl.textContent = memo.metadata.dataSources.join(', ');
       }
-      
+
+      const lastUpdatedEl = screen3.querySelector('#last-updated');
+      if (lastUpdatedEl) {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        lastUpdatedEl.textContent = `${dateStr} at ${timeStr}`;
+      }
+
       const confidenceEl = screen3.querySelector('#confidence');
       if (confidenceEl) {
         const confidenceText = memo.metadata.confidence.charAt(0).toUpperCase() + memo.metadata.confidence.slice(1) + ' Confidence';
-        const bgColor = memo.metadata.confidence === 'high' ? 'bg-green-100 text-green-800' : 
-                        memo.metadata.confidence === 'medium' ? 'bg-yellow-100 text-yellow-800' : 
+        const bgColor = memo.metadata.confidence === 'high' ? 'bg-green-100 text-green-800' :
+                        memo.metadata.confidence === 'medium' ? 'bg-yellow-100 text-yellow-800' :
                         'bg-red-100 text-red-800';
         confidenceEl.className = `px-3 py-1 ${bgColor} text-xs font-semibold rounded-full`;
         confidenceEl.textContent = confidenceText;
@@ -828,18 +1088,35 @@
         document.getElementById(`screen${currentScreen}`).classList.remove('active');
         currentScreen++;
         
+        // Generate memo when transitioning from screen 1 to screen 2
+        if (currentScreen === 2 && !generatedMemo) {
+          generatedMemo = generateMemo(mockEvent, mockProfiles, mockOrganization);
+        }
+        
         if (currentScreen === 2) {
+          document.getElementById(`screen${currentScreen}`).classList.add('active');
           setTimeout(() => {
             if (currentScreen === 2) {
               document.getElementById(`screen${currentScreen}`).classList.remove('active');
               currentScreen = 3;
+              // Ensure memo is generated before rendering
+              if (!generatedMemo) {
+                generatedMemo = generateMemo(mockEvent, mockProfiles, mockOrganization);
+              }
               document.getElementById(`screen${currentScreen}`).classList.add('active');
-              if (generatedMemo) renderMemo();
+              renderMemo();
             }
           }, 3000);
+        } else if (currentScreen === 3) {
+          // If jumping directly to screen 3, generate memo and render first
+          if (!generatedMemo) {
+            generatedMemo = generateMemo(mockEvent, mockProfiles, mockOrganization);
+          }
+          document.getElementById(`screen${currentScreen}`).classList.add('active');
+          renderMemo();
+        } else {
+          document.getElementById(`screen${currentScreen}`).classList.add('active');
         }
-        
-        document.getElementById(`screen${currentScreen}`).classList.add('active');
       }
     });
     
